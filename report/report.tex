@@ -1,0 +1,112 @@
+\documentclass[a4paper, 12pt]{scrartcl} % Font size (can be 10pt, 11pt or 12pt) and paper size (remove a4paper for US letter paper)
+\input{include/header}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{abbrevs}
+\usepackage[toc]{glossaries} % nomain, if you define glossaries in a file, and you use \include{INP-00-glossary}
+\makeglossaries
+\linespread{1.05} % Change line spacing here, Palatino benefits from a slight increase by default
+\makeatletter
+\renewcommand{\maketitle}{ % Customize the title - do not edit title and author name here, see the TITLE block below
+  \begin{flushright} % Right align
+    {\LARGE\@title}\\ % Increase the font size of the title
+    \vspace{50pt} % Some vertical space between the title and author name
+    {\large\@author} % Author name
+    \\\@date % Date
+    \vspace{40pt} % Some vertical space between the author block and abstract
+  \end{flushright}
+}
+\title{\textbf{INN570 Programming Assignment}\\ % Title
+Translation Memory Editor (Option 1)} % Subtitle
+\author{\textsc{Lukas Elsner \\ n9224262} % Author
+\\{\textit{Queensland University of Technology}}} % Institution
+\date{\today} % Date
+\begin{document}
+\maketitle % Print the title section
+\thispagestyle{empty}
+%\renewcommand{\abstractname}{Summary} % Uncomment to change the name of the abstract to something else
+\vspace{10em}
+\begin{abstract}
+  The task was to develop a application which takes a $resx$ file as an input and
+  outputs another $resx$ file with its content translated to a different
+  language. The translation should be made with help of translation memories in
+  TMX format, as well as external translator services, such as online translators
+  like Google Translate. This document covers the implementation report, as well
+  as occurred problems while implementing the application.
+\end{abstract}
+\newpage
+\tableofcontents
+\newpage
+%\hspace*{3,6mm}\textit{Keywords:} lorem , ipsum , dolor , sit amet , lectus % Keywords
+%\vspace{30pt} % Some vertical space between the abstract and first section
+%----------------------------------------------------------------------------------------
+%	ESSAY BODY
+%----------------------------------------------------------------------------------------
+
+\section{Statement of Completeness}
+
+The assignment has been fully completed and so far, the system is fully functional. The following section lists all implemented features.
+
+\section{Functionality}
+
+\subsection{Essential Features}
+
+The following basic functionality has been implemented:
+\begin{itemize}
+  \item A GUI for communicating with the user
+  \item $resx$ files can be loaded, displayed, and saved
+  \item Translation memories from TMX files can be loaded, modified and saved
+  \item A $DataGrid$ shows the content of the loaded $resx$ file as well as the
+    translation of it
+  \item The User can translate items by himself
+  \item Source and destination cultures are displayed after loading $resx$ and
+    TMX file. If the TMX file supports multiple cultures, the user can choose
+    one of those instead of using the default value.
+  \item The user can exit from the application nicely
+\end{itemize}
+
+\subsection{Optional Features}
+
+The following optional features have been implemented:
+\begin{itemize}
+  \item Google Translate can be used as an external translation service for
+    items which could not be found in the TMX file.
+  \item A fuzzy string matching system has been implemented. Three modi are
+    available: None, Manual and Auto
+  \item A CLI with the same functionality has been implemented
+\end{itemize}
+
+\section{Possible problems with online translation}
+
+The Google Translate API is not free. Therefore, this implementation does not use the API, but uses GET-calls to the website and parses its output. Google might change this interface at any time without any warning. Please consider this while marking and contact me if there are any problems with that.
+
+\section{A small introduction}
+
+Figure~\ref{fig:app} shows the GUI with annotations on the elementary user choices.
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{ResourceTranslator-annotated.png}
+  \caption{Resource Translator GUI}
+  \label{fig:app}
+\end{figure}
+
+\begin{enumarabic}
+\item Load RESX and TMX file, save and export RESX and TMX files
+\item Select language, if TMX supports more than one
+\item Select fuzziness mode and value
+\item Activate or deactivate Google Translate
+\item Select, if original TMX file should be updated after saving the destination RESX
+\item Start the translation process
+\end{enumarabic}
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+%\bibliographystyle{IEEEtran}
+%\bibliography{bibtex}
+%----------------------------------------------------------------------------------------
+%\printindex
+%\printglossaries
+%\listoffigures
+%\listoftables
+\end{document}
